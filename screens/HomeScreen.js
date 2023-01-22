@@ -4,7 +4,7 @@ import { StatusBar } from 'expo-status-bar';
 import { Button, StyleSheet, Text, TouchableOpacity, View, Dimensions, PermissionsAndroid, Image } from 'react-native';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 
-export default function HomeScreen() {
+export default function HomeScreen({ navigation }) {
 	// const { height, width } = Dimensions.get('window');
 	// const [type, setType] = useState(CameraType.back);
 	// const [imageUri, setImageUri] = useState(null);
@@ -27,6 +27,11 @@ export default function HomeScreen() {
 	
 	return (
 		<View style={styles.container}>
+			<Button
+				title="Navigate to test screen"
+				onPress={() => navigation.navigate("Test")}
+			/>
+			
 			<View style={styles.buttonContainer}>
 				<TouchableOpacity style={styles.button} onPress={openCamera}>
 					<Text style={styles.text}>Open Camera</Text>
