@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Button, StyleSheet, Text, TouchableOpacity, View, Dimensions } from 'react-native';
 
-export default function HomeScreen({ navigation }) {
+export default function DetailsScreen({ navigation }) {
 	
 	return (
 		<View style={styles.container}>

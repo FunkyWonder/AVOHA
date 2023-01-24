@@ -4,6 +4,7 @@ import { StatusBar } from 'expo-status-bar';
 import { Button, StyleSheet, Text, TouchableOpacity, View, Dimensions, Platform } from 'react-native';
 
 export default function App() {
+	// TODO: Improve camera resolution calculation
 	//Camera Permissions
 	const [hasCameraPermission, setHasCameraPermission] = useState(null);
 	const [camera, setCamera] = useState(null);
@@ -24,43 +25,6 @@ export default function App() {
 	
 	const prepareRatio = async() => {
 		let desiredRatio = '4:3'
-
-		if (Platform.OS === 'android') {
-			const ratios = await camera.getSupportedRatiosAsync();
-			// Calculate the width/height of each of the supported camera ratios
-			// These width/height are measured in landscape mode
-			// Find the ratio that is closest to the screen ratio without going over
-			let distances = {};
-			let realRatios = {};
-			let minDistance = null;
-			for (const ratio of ratios) {
-				const parts = ratio.split(':');
-				const realRatio = parseInt(parts[0]) / parseInt(parts[1]);
-				realRatios[ratio] = realRatio;
-				// Ratio can't be taller than screen, so we don't want an abs()
-				const distance = screenRatio - realRatio; 
-				distances[ratio] = realRatio;
-				if (minDistance == null) {
-				minDistance = ratio;
-				} else {
-				if (distance >= 0 && distance < distances[minDistance]) {
-					minDistance = ratio;
-				}
-				}
-			}
-			// Set the best match
-			desiredRatio = minDistance;
-			// Calculate the difference between the camera width and the screen height
-			const remainder = Math.floor(
-				(height - realRatios[desiredRatio] * width) / 2
-			);
-			// Set the preview padding and preview ratio
-			setImagePadding(remainder);
-			setRatio(desiredRatio);
-			// Set a flag so we don't do this 
-			// Calculation each time the screen refreshes
-			setIsRatioSet(true);
-		}
 	};
 	
 	const setCameraReady = async() => {
